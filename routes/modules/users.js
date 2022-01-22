@@ -4,14 +4,16 @@ const db = require('../../models')
 const Todo = db.Todo
 const User = db.User
 const bcrypt = require('bcryptjs')
+const passport = require('passport')
 
 router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', (req, res) => {
-  res.send('login')
-})
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/users/login'
+}))
 
 router.get('/register', (req, res) => {
   res.render('register')
